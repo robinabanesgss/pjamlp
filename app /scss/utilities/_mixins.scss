@@ -1,0 +1,255 @@
+@mixin font-size($size) {
+  font-size: $size;
+  font-size: calculateRem($size);
+}
+/**
+  * Media query
+  */
+@mixin breakpoint($point) {
+  @if $point == pc-lg {
+    @media only screen and (min-width: $breakpoint-pc-lg) {
+      @content;
+    }
+  }
+  @if $point == pc {
+    @media only screen and (min-width: $breakpoint-pc) {
+      @content;
+    }
+  }
+  @if $point == pc-sm-3 {
+    @media only screen and (max-width: 1200px) and (min-width: 1024px) {
+      @content;
+    }
+  }
+  @if $point == pc-sm-2 {
+    @media only screen and (max-width: 1200px) and (min-width: 1057px) {
+      @content;
+    }
+  }
+  @if $point == pc-sm {
+    @media only screen and (max-width: $breakpoint-pc-sm) and (min-width: $breakpoint-pc) {
+      @content;
+    }
+  }
+  @if $point == recruit-slider {
+    @media (max-width: 1070px) {
+      @content
+    }
+  }
+  @if $point == recruit-links {
+    @media (max-width: 875px) {
+      @content;
+    }
+  }
+  @if $point == tablet {
+    @media screen and (min-width: $breakpoint-tablet-min) and (max-width: $breakpoint-tablet-max) {
+      @content;
+    }
+  }
+  @if $point == tablet-cms {
+    @media screen and (min-width: $breakpoint-tablet-min) and (max-width: $breakpoint-tablet-max-cms) {
+      @content;
+    }
+  }
+  @if $point == tablet-landscape {
+    @media only screen
+                and (max-width: 900px),
+                (height: 1024px)
+                and (width: 1366px)
+                and (-webkit-min-device-pixel-ratio: 1.5)
+                and (orientation: landscape){
+      @content;
+    }
+  }
+  @if $point == sp-big-2 {
+    @media screen and (min-width: 750px) and (max-width: 820px) {
+      @content;
+    }
+  }
+  @if $point == sp-big {
+    @media screen and (min-width: 520px) and (max-width: 767px) {
+      @content;
+    }
+  }
+  @if $point == sp {
+    @media only screen and (max-width: $breakpoint-sp) {
+      @content;
+    }
+  }
+  @if $point == sp-sm {
+    @media only screen and (max-width: $breakpoint-sp-sm) {
+      @content;
+    }
+  }
+  @if $point == sp-sm-landscape {
+    @media only screen and (max-width: 568px) and (min-width: 320px) and (orientation: landscape){
+      @content;
+    }
+  }
+  @if $point == sp-landscape {
+    @media (min-width: 319px) and (max-width: 820px) and (orientation: landscape) {
+      @content;
+    }
+  }
+  @if $point == sp-x {
+   @media screen and (min-width: 375px) and (min-height: 812px) and (orientation: portrait) {
+      @content;
+   }
+  }
+  @if $point == sm {
+    @media (max-width: 575.98px) and (min-width: 321px) {
+      @content;
+    }
+  }
+  @if $point == xs {
+    @media only screen and (max-width: 320px) {
+      @content;
+    }
+  }
+}
+/**
+  * Pseudo
+  */
+@mixin pseudo($display: block, $pos: absolute, $content: ''){
+  content: $content;
+  display: $display;
+  position: $pos;
+}
+// Usage
+// .test::after {
+//     @include pseudo(block, absolute, '');
+// }
+/*
+*
+*   $arg1 accepts margin, padding and font-size
+*    @include converter-sp(padding,30);
+*    @include converter-sp(padding,30,30);
+*    @include converter-sp(padding,30,30,30);
+*    @include converter-sp(padding,30,30,30,30);
+*
+*/
+@mixin converter-sp($arg...) {
+  @if nth($arg, 1) == padding or nth($arg, 1) == margin {
+    @if length($arg) <= 5 {
+      $val: 0;
+      $val-vw: 0;
+      @for $i from 2 through length($arg) {
+        $val : $val + px-vw(nth($arg, $i)) *  1% + ' ';
+        $val-vw : $val-vw + px-vw(nth($arg, $i)) *  1vw + ' ';
+      }
+      #{nth($arg, 1)}: unquote($val);
+      #{nth($arg, 1)}: unquote($val-vw);
+    }
+  }
+  @if nth($arg,1) == font-size {
+    #{nth($arg, 1)}: px-rem(nth($arg, 2)) * 1rem;
+    #{nth($arg, 1)}: px-vw(nth($arg, 2)) * 1vw;
+  }
+  @if nth($arg,1) == line-height {
+    #{nth($arg, 1)}: px-rem(nth($arg, 2)) * 1rem;
+    #{nth($arg, 1)}: px-vw(nth($arg, 2)) * 1vw;
+  }
+  @if nth($arg,1) == height {
+    #{nth($arg, 1)}: px-rem(nth($arg, 2)) * 1rem;
+    #{nth($arg, 1)}: px-vw(nth($arg, 2)) * 1vw;
+  }
+  @if nth($arg,1) == width {
+    #{nth($arg, 1)}: px-rem(nth($arg, 2)) * 1rem;
+    #{nth($arg, 1)}: px-vw(nth($arg, 2)) * 1vw;
+  }
+}
+@mixin converter-tablet($arg...) {
+  @if nth($arg, 1) == padding or nth($arg, 1) == margin {
+    @if length($arg) <= 5 {
+      $val: 0;
+      $val-vw: 0;
+      @for $i from 2 through length($arg) {
+        $val : $val + px-vw(nth($arg, $i), 1024) *  1% + ' ';
+        $val-vw : $val-vw + px-vw(nth($arg, $i), 1024) *  1vw + ' ';
+      }
+      #{nth($arg, 1)}: unquote($val) !important;
+      #{nth($arg, 1)}: unquote($val-vw) !important;
+    }
+  }
+  @if nth($arg,1) == font-size {
+    #{nth($arg, 1)}: px-vw(nth($arg, 2), 1024) * 1vw !important;
+  }
+  @if nth($arg,1) == line-height {
+    #{nth($arg, 1)}: px-vw(nth($arg, 2), 1024) * 1vw !important;
+  }
+  @if nth($arg,1) == height {
+    #{nth($arg, 1)}: px-vw(nth($arg, 2), 1024) * 1vw !important;
+  }
+  @if nth($arg,1) == width {
+    #{nth($arg, 1)}: px-vw(nth($arg, 2), 1024) * 1vw !important;
+  }
+}
+@mixin converter-landscape($arg...) {
+  @if nth($arg, 1) == padding or nth($arg, 1) == margin {
+    @if length($arg) <= 5 {
+      $val: 0;
+      $val-vw: 0;
+      @for $i from 2 through length($arg) {
+        $val : $val + px-vw(nth($arg, $i), 1187) *  1% + ' ';
+        $val-vw : $val-vw + px-vw(nth($arg, $i), 1187) *  1vw + ' ';
+      }
+      #{nth($arg, 1)}: unquote($val) !important;
+      #{nth($arg, 1)}: unquote($val-vw) !important;
+    }
+  }
+  @if nth($arg,1) == font-size {
+    #{nth($arg, 1)}: px-vw(nth($arg, 2), 1187) * 1vw !important;
+  }
+  @if nth($arg,1) == line-height {
+    #{nth($arg, 1)}: px-vw(nth($arg, 2), 1187) * 1vw !important;
+  }
+  @if nth($arg,1) == height {
+    #{nth($arg, 1)}: px-vw(nth($arg, 2), 1187) * 1vw !important;
+  }
+  @if nth($arg,1) == width {
+    #{nth($arg, 1)}: px-vw(nth($arg, 2), 1187) * 1vw !important;
+  }
+}
+@mixin font-tablet($size) {
+  font-size: calc(#{$size} - 20%);
+}
+@function px-vw($num, $reso: 750) {
+  @return 100 / $reso * $num;
+}
+@function px-rem ($num) {
+  @return px-vw($num * 0.75);
+}
+/*
+ * ---------------------------------------
+    Additional mixin for fonts
+  ----------------------------------------
+ */
+@mixin font($family, $size, $weight) {
+  font-family: $family;
+  @include font-size($size);
+  font-weight: $weight;
+}
+@mixin letter-spacing($tracking) {
+  letter-spacing: calculate_ls($tracking);
+}
+@mixin line-height($size, $leading) {
+  line-height: calculate_lh($size, $leading);
+}
+/*
+ * ---------------------------------------
+    Transition Mixin
+  ----------------------------------------
+ */
+@mixin transition($val...) {
+  -moz-transition: $val;
+  transition: $val;
+}
+@function calculateSP($px) {
+  @return $px / 2 * 1px;
+}
+@mixin sp-px($args...) {
+  //font-size: calculateSP($px);
+  @if nth($args, 1) == font-size {
+    font-size: calculateSP(nth($args, 2));
+  }
+}

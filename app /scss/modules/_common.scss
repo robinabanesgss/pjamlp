@@ -1,0 +1,43 @@
+/*################
+    GENERAL
+################*/
+body {
+  line-height: 1.5;
+  color: #000;
+  overflow-x: hidden;
+  background: #fff;
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-font-smoothing: antialiased;
+}
+
+/*################
+   GLOBAL CLASS
+################*/
+
+
+
+/*################
+    CONTAINER
+################*/
+.container {
+     max-width: 1200px;
+     margin: 0 auto;
+     padding: 90px 40px;
+}
+
+.ttl-size-sp {
+     @include breakpoint(sp) {
+          font-size: 3rem;
+     }
+}
+
+/*################
+    PRELOAD
+################*/
+
+.preload * {
+  -webkit-transition: none !important;
+  -moz-transition: none !important;
+  -ms-transition: none !important;
+  -o-transition: none !important;
+}

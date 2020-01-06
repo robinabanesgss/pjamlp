@@ -1,0 +1,20 @@
+
+@function calculateRem($size) {
+  $remSize: $size / 10px;
+  @return $remSize * 1rem;
+}
+@function calculateEm($size) {
+  @return ($size / 16px) * 1em; 
+}
+
+@function calculate_ls($tracking) {
+  @return ($tracking / 1000) * 1em;
+}
+
+@function calculate_lh($size,$leading) {
+  @return $leading / $size;
+}
+
+@function percentVal($size,$parentSize) {
+  @return ($size/$parentSize) * 100%;
+}

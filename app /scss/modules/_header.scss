@@ -1,0 +1,356 @@
+/*################
+ MAIN NAVIGATION
+################*/
+#header {
+     position: fixed;
+     width: 100%;
+     z-index: 999;
+     background: #eeeeee;
+}
+
+.header {
+     display: flex;
+     align-items: center;
+     margin: 0 auto;
+     padding: 25px 20px 25px 30px;
+
+     @include breakpoint(tablet) {
+            display: none;
+     }
+
+     @include breakpoint(sp) {
+            display: none;
+     }
+
+     @include breakpoint(pc-sm-3) {
+            display: none;
+     }
+
+
+     &__logo {
+
+          img {
+               width: 55px;
+               height: 23px;
+          }
+
+          a {
+               transition: all 0.3s;
+          }
+
+          a:hover {
+               color: #ee7c29;
+          }
+     }
+
+     &__sp-logo {
+
+          @include breakpoint(sp) {
+               opacity: 0;
+               position: absolute;
+               top: 19px;
+               left: 25px;
+               z-index: 2;
+               
+          }
+
+          @include breakpoint(tablet) {
+               opacity: 0;
+               position: absolute;
+               top: 19px;
+               left: 25px;
+               z-index: 2;
+               
+          }
+
+          @include breakpoint(pc-sm-3) {
+               opacity: 0;
+               position: absolute;
+               top: 19px;
+               left: 25px;
+               z-index: 2;
+          }
+
+          @include breakpoint(sp-landscape) {
+                width: 260vh;
+                display: block;
+          }
+
+          img {
+               width: 55px;
+               height: 23px;
+          }
+     }
+
+     &__nav-cont {
+
+     }
+
+     &__nav-list {
+          display: flex;
+
+               li {
+                    margin-left: 50px;
+               }
+
+               a {
+                    transition: all 0.3s;
+               }
+
+               a:hover {
+                    color: #ee7c29;
+               }
+     }
+
+     &__btn {
+          margin-left: auto;
+
+          @include breakpoint(sp) {
+               margin-left: 0;
+          }
+
+          @include breakpoint(sp-landscape) {
+               margin-bottom: 50px;
+          }
+
+          @include breakpoint(tablet) {
+               margin-left: 0;
+               height: 50px;
+               margin-top: 20px;
+          }
+
+          a {
+               color: #ee7c29;
+               padding: 10px 25px;
+               border: 2px solid #ee7c29;
+               border-radius: 7px;
+               transition: .6s;
+          }
+
+          a:hover {
+               color: #fff;
+               background: #ee7c29;
+               opacity: 1;
+          }
+     }
+
+     &__sp {
+          display: none;
+
+
+          @include breakpoint(pc-sm-3) {
+               display: block;
+          }
+
+          @include breakpoint(tablet) {
+               display: block;
+          }
+
+          @include breakpoint(sp) {
+               display: block;
+          }
+     }
+
+     &__icon-cont {
+          position: fixed;
+          display: flex;
+          top: 0;
+          right: 0;
+          z-index: 1;
+          width: 46px;
+          height: 46px;
+          padding: 0.5em 1em;
+          border-radius: 0 0.12em 0.12em 0;
+          cursor: pointer;
+          transition: box-shadow 0.4s ease;
+          -webkit-backface-visibility: hidden;
+          backface-visibility: hidden;
+          align-items: center;
+          justify-content: center;
+     }
+
+     &__icon-lines {
+          position: relative;
+          flex: none;
+          width: 32px;
+          height: 1px;
+          background: #FEFEFE;
+          transition: all 0.4s ease;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+
+          &:before, &:after {
+               content: '';
+               position: absolute;
+               z-index: 1;
+               top: -10px;
+               left: 0;
+               width: 100%;
+               height: 1px;
+               background: inherit;
+               border: 0;
+          }
+
+          &:after {
+               top: 10px;
+          }
+     }
+}
+
+.checkbox-toggle {
+  position: absolute;
+  top: 0;
+  right: 0;
+  z-index: 2;
+  cursor: pointer;
+  width: 46px;
+  height: 46px;
+  margin: 0.5em 1em;
+  opacity: 0;
+}
+.checkbox-toggle:checked + .header__icon-cont .header__icon-lines {
+  -webkit-transform: rotate(135deg);
+          transform: rotate(135deg);
+          background: rgb(191, 74, 176) !important;
+}
+.checkbox-toggle:checked + .header__icon-cont .header__icon-lines:before,
+.checkbox-toggle:checked + .header__icon-cont .header__icon-lines:after {
+  top: 0;
+  -webkit-transform: rotate(90deg);
+          transform: rotate(90deg);
+          background: rgb(191, 74, 176);
+}
+.checkbox-toggle:checked + .header__icon-cont .header__icon-lines:after {
+  opacity: 0;
+}
+.checkbox-toggle:checked ~ .menu {
+  pointer-events: auto;
+  visibility: visible;
+}
+.checkbox-toggle:checked ~ .header__sp-logo {
+  pointer-events: auto;
+  opacity: 1;
+  transition: 1s;
+}
+.checkbox-toggle:checked ~ .menu > div {
+  -webkit-transform: scale(1);
+          transform: scale(1);
+  transition-duration: 0.75s;
+}
+.checkbox-toggle:checked ~ .menu > div > div {
+  opacity: 1;
+  transition: opacity 0.4s ease 0.4s;
+}
+.checkbox-toggle:hover + .header__icon-cont .header__icon-cont {
+  box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.1);
+}
+.checkbox-toggle:checked:hover + .header__icon-cont .header__icon-lines {
+  -webkit-transform: rotate(225deg);
+          transform: rotate(225deg);
+}
+
+.menu {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  visibility: hidden;
+  overflow: hidden;
+  -webkit-backface-visibility: hidden;
+          backface-visibility: hidden;
+  outline: 1px solid transparent;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.menu > div {
+     -webkit-backface-visibility: hidden;
+     backface-visibility: hidden;
+     width: 250vw;
+     height: 250vw;
+     color: #FEFEFE;
+     background: #f1f2f2;
+     border-radius: 50%;
+     transition: all 0.4s ease;
+     flex: none;
+     -webkit-transform: scale(0);
+     transform: scale(0);
+     overflow: hidden;
+     display: flex;
+     align-items: center;
+     justify-content: center;
+}
+
+.menu > div > div {
+     text-align: center;
+     width: 100%;
+     max-height: 100vh;
+     opacity: 0;
+     transition: opacity 0.4s ease;
+     flex: none;
+     display: flex;
+     flex-direction: column;
+     align-items: center;
+     justify-content: center;
+     overflow: auto;
+
+     @include breakpoint(sp) {
+          width: 100%;
+          height: 100vh;
+          display: inline-flex;
+          max-width: none;
+          overflow-y: scroll;
+          padding-top: 4rem;
+     }
+
+ @include breakpoint(sp-landscape) {
+      display: block;
+}
+
+}
+.menu > div > div > ul {
+  list-style: none;
+  padding: 0 1em;
+  margin: 0;
+  display: block;
+
+  @include breakpoint(sp) {
+       margin: 0 0 2.5rem;
+ }
+}
+.menu > div > div > ul > li {
+  padding: 0;
+  margin: 0.5em;
+  font-size: 24px;
+  display: block;
+}
+.menu > div > div > ul > li > a {
+  position: relative;
+  display: inline;
+  cursor: pointer;
+  transition: color 0.4s ease;
+
+  @include breakpoint(sp) {
+       font-size: 1.8rem;
+ }
+}
+.menu > div > div > ul > li > a:hover {
+  color: #e5e5e5;
+}
+.menu > div > div > ul > li > a:hover:after {
+  width: 100%;
+}
+.menu > div > div > ul > li > a:after {
+  content: '';
+  position: absolute;
+  z-index: 1;
+  bottom: -0.15em;
+  left: 0;
+  width: 0;
+  height: 2px;
+  background: #e5e5e5;
+  transition: width 0.4s ease;
+}
